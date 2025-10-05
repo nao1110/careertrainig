@@ -178,7 +178,9 @@
                                 <div class="card-header bg-primary text-white py-2">
                                     <h6 class="mb-0">
                                         <i class="fas fa-graduation-cap me-1"></i>
-                                        山崎 玲奈（22歳）
+                                        <a href="{{ route('personas.show', 1) }}" class="text-white text-decoration-none">
+                                            山崎 玲奈（22歳）
+                                        </a>
                                     </h6>
                                 </div>
                                 <div class="card-body p-3">
@@ -200,7 +202,9 @@
                                 <div class="card-header bg-success text-white py-2">
                                     <h6 class="mb-0">
                                         <i class="fas fa-briefcase me-1"></i>
-                                        野口 大輔（35歳）
+                                        <a href="{{ route('personas.show', 2) }}" class="text-white text-decoration-none">
+                                            野口 大輔（35歳）
+                                        </a>
                                     </h6>
                                 </div>
                                 <div class="card-body p-3">

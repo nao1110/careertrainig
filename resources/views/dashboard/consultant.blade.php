@@ -228,7 +228,9 @@
                     <div class="border-start border-3 border-primary ps-3 mb-3">
                         <h6 class="text-primary mb-1">
                             <i class="fas fa-graduation-cap me-1"></i>
-                            山崎 玲奈（22歳・大学生）
+                            <a href="{{ route('personas.show', 1) }}" class="text-primary text-decoration-none">
+                                山崎 玲奈（22歳・大学生）
+                            </a>
                         </h6>
                         <small class="text-muted">総合商社への憧れと既存内定先との比較で悩み中</small>
                     </div>
@@ -237,7 +239,9 @@
                     <div class="border-start border-3 border-success ps-3 mb-3">
                         <h6 class="text-success mb-1">
                             <i class="fas fa-briefcase me-1"></i>
-                            野口 大輔（35歳・出版社）
+                            <a href="{{ route('personas.show', 2) }}" class="text-success text-decoration-none">
+                                野口 大輔（35歳・出版社）
+                            </a>
                         </h6>
                         <small class="text-muted">編集から営業異動、交際相手の転勤で将来に悩み</small>
                     </div>

@@ -21,12 +21,12 @@ class AppointmentController extends Controller
         
         if ($user->isCandidate()) {
             $appointments = $user->candidateAppointments()
-                ->with(['consultant', 'persona'])
+                ->with(['consultant'])
                 ->orderByDesc('appointment_datetime')
                 ->paginate(10);
         } else {
             $appointments = $user->consultantAppointments()
-                ->with(['candidate', 'persona'])
+                ->with(['candidate'])
                 ->orderByDesc('appointment_datetime')
                 ->paginate(10);
         }
@@ -245,16 +245,13 @@ class AppointmentController extends Controller
 
     /**
      * フォールバック用のGoogle Meet URL生成
+     * MVPとして、ユーザーが新しいMeetルームを作成する方式に変更
      */
     private function generateFallbackMeetUrl($appointment)
     {
-        // より現実的なGoogle Meet URL形式を生成
-        $chars = 'abcdefghijklmnopqrstuvwxyz';
-        $segment1 = substr(str_shuffle($chars), 0, 3);
-        $segment2 = substr(str_shuffle($chars), 0, 4);
-        $segment3 = substr(str_shuffle($chars), 0, 3);
-        
-        return "https://meet.google.com/{$segment1}-{$segment2}-{$segment3}";
+        // Google Meetの新しいミーティング作成URL
+        // ユーザーがクリックすると自動的に新しいルームが作成される
+        return "https://meet.google.com/new";
     }
 
     /**
