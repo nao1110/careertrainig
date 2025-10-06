@@ -18,6 +18,19 @@
                 <span class="text-primary fw-bold">「実践経験」</span>で効率的に練習しましょう
             </p>
 
+            <!-- デバッグ情報 -->
+            @if(config('app.debug'))
+            <div class="alert alert-info">
+                <small>
+                    認証状態: {{ auth()->check() ? 'ログイン中' : '未ログイン' }}<br>
+                    @if(auth()->check())
+                        ユーザー: {{ auth()->user()->name }} ({{ auth()->user()->user_type }})<br>
+                        セッションID: {{ session()->getId() }}
+                    @endif
+                </small>
+            </div>
+            @endif
+
             @guest
                 <!-- ロール選択 -->
                 <div class="mb-5">
@@ -86,10 +99,23 @@
             @else
                 <!-- ダッシュボードボタン -->
                 <div class="mb-5">
-                    <a href="{{ route('dashboard') }}" class="btn btn-success btn-lg px-4 py-3">
+                    <div class="alert alert-success">
+                        <h5><i class="fas fa-check-circle me-2"></i>ログイン済み</h5>
+                        <p class="mb-2">ようこそ、{{ auth()->user()->name }}さん ({{ auth()->user()->user_type == 'candidate' ? '受験者' : 'キャリアコンサルタント' }})</p>
+                    </div>
+                    
+                    <a href="{{ route('dashboard') }}" class="btn btn-success btn-lg px-4 py-3 me-3">
                         <i class="fas fa-tachometer-alt me-2"></i>
                         ダッシュボードへ
                     </a>
+                    
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-secondary">
+                            <i class="fas fa-sign-out-alt me-2"></i>
+                            ログアウト
+                        </button>
+                    </form>
                 </div>
             @endguest
 

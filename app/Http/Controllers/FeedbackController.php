@@ -12,6 +12,30 @@ class FeedbackController extends Controller
     use AuthorizesRequests;
 
     /**
+     * フィードバック一覧表示
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        
+        if ($user->isCandidate()) {
+            // 受験生: 自分宛のフィードバックを表示
+            $feedbacks = Feedback::where('candidate_id', $user->id)
+                ->with(['appointment', 'consultant'])
+                ->orderByDesc('created_at')
+                ->get();
+        } else {
+            // コンサルタント: 自分が作成したフィードバックを表示
+            $feedbacks = Feedback::where('consultant_id', $user->id)
+                ->with(['appointment', 'candidate'])
+                ->orderByDesc('created_at')
+                ->get();
+        }
+
+        return view('feedback.index', compact('feedbacks'));
+    }
+
+    /**
      * フィードバック作成フォームの表示
      */
     public function create(Appointment $appointment)

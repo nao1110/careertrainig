@@ -50,7 +50,9 @@ class GoogleCalendarService
             $this->service = new Google_Service_Calendar($this->client);
             
             Log::info('Google Calendar service initialized successfully with key file: ' . $keyFilePath);
-        } catch (Exception $e) {
+            
+            Log::info('Google Calendar service initialized successfully with key file: ' . $keyFilePath);
+        } catch (\Exception $e) {
             Log::error('Failed to initialize Google Calendar service: ' . $e->getMessage());
             Log::error('Key file path: ' . $keyFilePath);
             $this->service = null;
@@ -149,6 +151,16 @@ class GoogleCalendarService
         $description .= "\nシステム: キャリトレ・モーニング";
         
         return $description;
+    }
+
+    /**
+     * 一意のMeetingコードを生成
+     */
+    private function generateMeetingCode($appointmentId)
+    {
+        // 一意性を保つためのコード生成
+        $code = 'mkt-' . substr(md5('appointment-' . $appointmentId . '-' . time()), 0, 8);
+        return $code;
     }
 
     /**

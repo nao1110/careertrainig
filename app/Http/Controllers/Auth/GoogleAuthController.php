@@ -58,7 +58,17 @@ class GoogleAuthController extends Controller
             session(['user_type' => $request->get('type')]);
         }
         
+        // デバッグ情報をログに出力
+        \Log::info('Google OAuth redirect configuration', [
+            'client_id' => substr(env('GOOGLE_CLIENT_ID'), 0, 20) . '...',
+            'redirect_uri' => env('GOOGLE_REDIRECT_URI'),
+            'current_url' => url()->current(),
+            'app_url' => env('APP_URL')
+        ]);
+        
         $authUrl = $this->client->createAuthUrl();
+        \Log::info('Generated auth URL', ['auth_url' => $authUrl]);
+        
         return redirect($authUrl);
     }
 
@@ -142,17 +152,18 @@ class GoogleAuthController extends Controller
 
                 // ユーザーをログイン
                 Auth::login($user);
-                \Log::info('User logged in', ['user_id' => $user->id]);
+                
+                \Log::info('User logged in', [
+                    'user_id' => $user->id,
+                    'user_type' => $user->user_type,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'auth_check_after_login' => Auth::check(),
+                    'session_id' => session()->getId()
+                ]);
 
-                // プロフィール未完成の場合は設定画面にリダイレクト
-                if ($this->needsProfileSetup($user)) {
-                    \Log::info('Redirecting to profile setup');
-                    return redirect()->route('setup.profile')->with('success', 'プロフィール設定を完了してください。');
-                }
-
-                // ダッシュボードにリダイレクト
                 \Log::info('Redirecting to dashboard');
-                return redirect()->route('dashboard')->with('success', 'ログインしました。');
+                return redirect()->route('dashboard');
 
             } catch (\Exception $e) {
                 \Log::error('Google OAuth Error: ' . $e->getMessage(), ['exception' => $e]);

@@ -12,7 +12,7 @@
                     コンサルタントダッシュボード
                 </h1>
                 <div>
-                    <span class="badge bg-success">{{ auth()->user()->name }}</span>
+                    <span class="badge bg-success">キャリアコンサルタント</span>
                 </div>
             </div>
         </div>
@@ -211,9 +211,34 @@
         </div>
     </div>
 
-    <!-- ペルソナサンプルと指導ガイド -->
+    <!-- 機能メニュー -->
     <div class="row mb-4">
-        <div class="col-lg-6 mb-4">
+        <div class="col-lg-4 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clipboard-list me-2"></i>
+                        フィードバック管理
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">作成したフィードバックの一覧と管理</p>
+                    <div class="text-center mb-3">
+                        <i class="fas fa-star fa-2x text-info mb-2"></i>
+                        <p class="mb-1"><strong>評価レポート</strong></p>
+                        <small class="text-muted">受験者へのアドバイス</small>
+                    </div>
+                    <div class="d-grid">
+                        <a href="{{ route('feedback.index') }}" class="btn btn-info w-100">
+                            <i class="fas fa-list me-2"></i>
+                            フィードバック一覧
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-warning text-dark">
                     <h5 class="mb-0">
@@ -256,7 +281,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6 mb-4">
+        <div class="col-lg-4 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-secondary text-white">
                     <h5 class="mb-0">

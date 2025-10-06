@@ -12,7 +12,7 @@
                     受験者ダッシュボード
                 </h1>
                 <div>
-                    <span class="badge bg-primary">{{ auth()->user()->name }}</span>
+                    <span class="badge bg-primary">受験者</span>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
 
     <div class="row">
         <!-- 新規予約作成 -->
-        <div class="col-lg-4 mb-4">
+        <div class="col-lg-3 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-primary text-white">
                     <h5 class="mb-0">
@@ -82,8 +82,60 @@
             </div>
         </div>
 
+        <!-- フィードバック一覧 -->
+        <div class="col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-clipboard-list me-2"></i>
+                        フィードバック
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">面談後のコンサルタントからの評価とアドバイス</p>
+                    <div class="text-center mb-3">
+                        <i class="fas fa-star fa-2x text-info mb-2"></i>
+                        <p class="mb-1"><strong>評価・改善点</strong></p>
+                        <small class="text-muted">詳細なレポート</small>
+                    </div>
+                    <div class="d-grid">
+                        <a href="{{ route('feedback.index') }}" class="btn btn-info w-100">
+                            <i class="fas fa-list me-2"></i>
+                            フィードバック一覧
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ペルソナ一覧 -->
+        <div class="col-lg-3 mb-4">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users me-2"></i>
+                        練習用ペルソナ
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">面談練習用のクライアント設定</p>
+                    <div class="text-center mb-3">
+                        <i class="fas fa-user-friends fa-2x text-warning mb-2"></i>
+                        <p class="mb-1"><strong>様々なケース</strong></p>
+                        <small class="text-muted">難易度別</small>
+                    </div>
+                    <div class="d-grid">
+                        <a href="{{ route('personas.index') }}" class="btn btn-warning text-dark w-100">
+                            <i class="fas fa-search me-2"></i>
+                            ペルソナ一覧
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 今後の予約 -->
-        <div class="col-lg-4 mb-4">
+        <div class="col-lg-3 mb-4">
             <div class="card border-0 shadow-sm h-100">
                 <div class="card-header bg-success text-white">
                     <h5 class="mb-0">

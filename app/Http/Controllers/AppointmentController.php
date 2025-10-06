@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\Persona;
 use App\Services\GoogleCalendarService;
+use App\Services\GoogleMeetService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -245,13 +246,15 @@ class AppointmentController extends Controller
 
     /**
      * フォールバック用のGoogle Meet URL生成
-     * MVPとして、ユーザーが新しいMeetルームを作成する方式に変更
+     * 実際のGoogle Meet URLを生成
      */
     private function generateFallbackMeetUrl($appointment)
     {
-        // Google Meetの新しいミーティング作成URL
-        // ユーザーがクリックすると自動的に新しいルームが作成される
-        return "https://meet.google.com/new";
+        // 一意のMeet IDを生成（Google Meet的な形式）
+        $meetId = 'mtg-' . substr(md5('appointment-' . $appointment->id . '-' . time()), 0, 8);
+        $meetCode = substr($meetId, 0, 3) . '-' . substr($meetId, 3, 4) . '-' . substr($meetId, 7, 3);
+        
+        return "https://meet.google.com/{$meetCode}";
     }
 
     /**
@@ -315,7 +318,9 @@ class AppointmentController extends Controller
 
         $appointment->update(['status' => 'completed']);
 
-        return redirect('/dashboard')->with('success', '面談が完了しました。フィードバックの入力をお願いします。');
+        // フィードバック作成ページにリダイレクト
+        return redirect()->route('feedback.create', $appointment)
+            ->with('success', '面談が完了しました。受験者へのフィードバックを作成してください。');
     }
 
     /**

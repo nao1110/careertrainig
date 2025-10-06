@@ -35,10 +35,11 @@ Route::post('/demo-login', [GoogleAuthController::class, 'demoLogin'])->name('de
 // ログアウト
 Route::post('/logout', [GoogleAuthController::class, 'logout'])->name('logout');
 
+// ダッシュボード（認証必須）
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
 // 認証が必要なルート
 Route::middleware(['auth'])->group(function () {
-    // ダッシュボード
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // プロフィール管理
     Route::get('/setup-profile', [ProfileController::class, 'setup'])->name('setup.profile');
@@ -59,6 +60,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/appointments/{appointment}/complete', [AppointmentController::class, 'complete'])->name('appointments.complete');
     
     // フィードバック管理
+    Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
     Route::get('/appointments/{appointment}/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
     Route::post('/appointments/{appointment}/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
     Route::get('/feedback/{feedback}', [FeedbackController::class, 'show'])->name('feedback.show');

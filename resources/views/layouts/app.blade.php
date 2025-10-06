@@ -49,30 +49,9 @@
             </a>
             
             <div class="navbar-nav ms-auto">
-                @auth
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <img src="{{ auth()->user()->google_avatar }}" 
-                                 alt="Avatar" 
-                                 class="rounded-circle me-2" 
-                                 width="32" height="32">
-                            {{ auth()->user()->name }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">ダッシュボード</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">プロフィール編集</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">ログアウト</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                @else
-                    <a class="nav-link" href="{{ route('google.auth') }}">ログイン</a>
-                @endauth
+                {{-- MVPモードでは常にダッシュボードリンクを表示 --}}
+                <a class="nav-link" href="{{ route('dashboard') }}">ダッシュボード</a>
+                <a class="nav-link" href="{{ url('/') }}">ホーム</a>
             </div>
         </div>
     </nav>
